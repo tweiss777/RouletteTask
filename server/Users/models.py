@@ -7,7 +7,6 @@ class Users(models.Model):
     password = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    db_table = "users"
 
     def __str__(self):
         return self.username
