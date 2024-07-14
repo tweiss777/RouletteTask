@@ -1,26 +1,61 @@
-from django.shortcuts import render
+from django.db import IntegrityError
 from django.http import HttpResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from Notes.models import Notes
 from rest_framework import status
-# todo add exception handling
+from Notes.NotesSerializer import NotesSerializer
+import datetime
 @api_view(["GET"])
 def getNotes(request) -> Response:
-    return Response({"message": "get all notes"}, status=status.HTTP_200_OK) 
+    notes = Notes.objects.all() 
+    parsedNotes = NotesSerializer(notes, many=True).data
+    return Response({"notes": parsedNotes}, status=status.HTTP_200_OK) 
 
 @api_view(["POST"])
 def createNotes(request) -> Response:
-    return Response({"message": "create new note"}, status=status.HTTP_201_CREATED)
+    try:
+        newNote = request.data
+        Notes.objects.create(**newNote, created_at=datetime.datetime.now(), updated_at=datetime.datetime.now())
+        createdNote = Notes.objects.latest('created_at')
+        parsedNote = NotesSerializer(createdNote).data
+        return Response({"message": parsedNote}, status=status.HTTP_201_CREATED)
+    except IntegrityError:
+        return Response({"message": "Invalid user id"}, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        return Response({"message": "create new note failed"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+    
 @api_view(["PUT"])
 def updateNotes(request, id) -> Response:
-    return Response({"message": "update note"}, status=status.HTTP_204_NO_CONTENT)
-    
+    try:
+        note = Notes.objects.get(id=id)
+        if note == None:
+            return Response({"message": "note not found"}, status=status.HTTP_404_NOT_FOUND)
+        updatedNote = request.data
+        Notes.objects.filter(id=id).update(**updatedNote, updated_at=datetime.datetime.now())
+        parsedUpdatedNote = NotesSerializer(note).data
+        return Response({"note": parsedUpdatedNote }, status=status.HTTP_204_NO_CONTENT)
+    except Notes.DoesNotExist:
+        return Response({"message": "note not found"}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return Response({"message": "update note failed"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(["DELETE"])
 def deleteNotes(request, id):
-    return Response({"message": "delete note"}, status=status.HTTP_204_NO_CONTENT)
+    try:
+        note = Notes.objects.get(id=id)
+        Notes.objects.filter(id=note.id).delete()
+        return Response({"message": "note deleted"}, status=status.HTTP_204_NO_CONTENT)
+    except Notes.DoesNotExist:
+        return Response({"message": "note not found"}, status=status.HTTP_404_NOT_FOUND)
 
 @api_view(["GET"])
 def getNote(request, id) -> Response:
-    return Response({"message": "get note"}, status=status.HTTP_200_OK)
+    try:
+        note = Notes.objects.get(id=id)
+        parsedNote = NotesSerializer(note).data
+        return Response({"note": parsedNote}, status=status.HTTP_200_OK)
+    except Notes.DoesNotExist:
+        return Response({"message": "note not found"}, status=status.HTTP_404_NOT_FOUND)
+
