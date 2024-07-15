@@ -1,10 +1,11 @@
 import { createRef } from "react";
 import { createBrowserRouter } from 'react-router-dom'
+import Login from "../Pages/Login/Login";
 import App from "../App";
 const routes = [
     {
         path: "/login",
-        element: <h1>Login</h1>,
+        element: <Login />,
         name: "Login",
         nodeRef: createRef(),
     },
