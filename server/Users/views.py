@@ -3,14 +3,12 @@ from django.http import HttpResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from Users.models import Users
+from .models import Users
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from rest_framework_simplejwt.views import TokenObtainPairView
 
 '''helper function to generate token'''
 def generateToken(user) -> str:
-    refresh =RefreshToken.for_user(user)
+    refresh = RefreshToken.for_user(user)
     refresh["username"] = user.username
     refresh["role"] = user.role
     return str(refresh.access_token)
@@ -29,8 +27,8 @@ def register(request) -> Response:
         if exists:
             return Response({"message": "username already exists"}, status=status.HTTP_409_CONFLICT)
 
-        Users.objects.create(username=username, password=password)
-        token = generateToken(Users.objects.get(username=username))
+        user = Users.objects.create_user(username=username, password=password)
+        token = generateToken(user)
         return Response({"token": token}, status=status.HTTP_201_CREATED)
     except Exception as e:
         return Response({"message": "something went wrong"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

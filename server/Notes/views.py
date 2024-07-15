@@ -1,18 +1,21 @@
 from django.db import IntegrityError
 from django.http import HttpResponse
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from Notes.models import Notes
 from rest_framework import status
 from Notes.NotesSerializer import NotesSerializer
+from Auth.auth import IsAuthorizedPermission
 import datetime
 @api_view(["GET"])
+@permission_classes([IsAuthorizedPermission])
 def getNotes(request) -> Response:
     notes = Notes.objects.all() 
     parsedNotes = NotesSerializer(notes, many=True).data
     return Response({"notes": parsedNotes}, status=status.HTTP_200_OK) 
 
 @api_view(["POST"])
+@permission_classes([IsAuthorizedPermission])
 def createNotes(request) -> Response:
     try:
         newNote = request.data
@@ -27,6 +30,7 @@ def createNotes(request) -> Response:
 
     
 @api_view(["PUT"])
+@permission_classes([IsAuthorizedPermission])
 def updateNotes(request, id) -> Response:
     try:
         note = Notes.objects.get(id=id)
@@ -42,6 +46,7 @@ def updateNotes(request, id) -> Response:
         return Response({"message": "update note failed"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(["DELETE"])
+@permission_classes([IsAuthorizedPermission])
 def deleteNotes(request, id):
     try:
         note = Notes.objects.get(id=id)
@@ -51,6 +56,7 @@ def deleteNotes(request, id):
         return Response({"message": "note not found"}, status=status.HTTP_404_NOT_FOUND)
 
 @api_view(["GET"])
+@permission_classes([IsAuthorizedPermission])
 def getNote(request, id) -> Response:
     try:
         note = Notes.objects.get(id=id)
