@@ -1,5 +1,7 @@
-export default class RegistrationDTO {
-    username: string = '';
-    password: string = '';
-    confirmPassword: string = '';
+type RegistrationDTO ={
+    username: string ;
+    password: string ;
+    confirmPassword: string ;
 }
+
+export default RegistrationDTO
