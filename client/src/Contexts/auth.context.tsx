@@ -29,12 +29,12 @@ export const AuthContextProvider = ({ children }: IProps) => {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
     const [cookies, setCookie, removeCookie] = useCookies(["token"]);
     const setUserData = (token: string) => {
-        const decodedToken = jwtDecode(token);
-        console.log(decodedToken);
+        const decodedToken: any= jwtDecode(token);
         setToken(token);
-        setUserId(userId);
+        setUserId(decodedToken.user_id);
         setIsAuthenticated(true);
         setCookie("token", token, { path: "/" });
+        //redirect user to dashboard
     };
     function isUserLoggedIn() {
         if (cookies.token) {
