@@ -1,4 +1,4 @@
-import CredentialsDTO from "../DTOS/credentialsDTO";
+import CredentialsDTO from "../DTOS/credentials.dto";
 import UnauthorizedException from "../Errors/unauthorized.exception";
 import InternalServerError from "../Errors/internal.exception";
 import axios from "axios";

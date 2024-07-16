@@ -1,5 +1,5 @@
 import { useState } from "react";
-import CredentialsDTO from "../../../DTOS/credentialsDTO";
+import CredentialsDTO from "../../../DTOS/credentials.dto";
 import UnauthorizedException from "../../../Errors/unauthorized.exception";
 import { loginUser } from "../../../Services/user.service";
 

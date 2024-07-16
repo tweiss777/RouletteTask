@@ -1,6 +1,6 @@
 import "../scss/loginForm.scss";
 import { useState } from "react";
-import CredentialsDTO from "../../../DTOS/credentialsDTO";
+import CredentialsDTO from "../../../DTOS/credentials.dto";
 import { Link } from 'react-router-dom';
 interface IProps {
     handleSubmit: (loginForm: CredentialsDTO) => void;
