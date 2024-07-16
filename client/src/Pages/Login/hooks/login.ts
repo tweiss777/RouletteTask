@@ -3,9 +3,10 @@ import CredentialsDTO from "../../../DTOS/credentials.dto";
 import UnauthorizedException from "../../../Errors/unauthorized.exception";
 import useAuthContext from "../../../hooks/useAuthContext";
 import { loginUser } from "../../../Services/user.service";
+import RegistrationDTO from "../../../DTOS/registration.dto";
 
 export default function useLogin() {
-    const [disableLoginBtn, setDisableLoginBtn] = useState(false);
+    const [disableBtn, setDisableLoginBtn] = useState(false);
     const [error, setError] = useState<string>("");
     const { setUserData }  = useAuthContext();
     async function login(credentials: CredentialsDTO) {
@@ -29,9 +30,15 @@ export default function useLogin() {
         }
     }
 
+    function register(registrationForm: RegistrationDTO) {
+        throw new Error("Function not implemented.");
+
+    }
+
     return {
-        disableLoginBtn,
+        disableBtn,
         error,
-        login,
+        login, 
+        register
     };
 }
