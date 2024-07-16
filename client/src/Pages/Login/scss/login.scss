@@ -1,0 +1,41 @@
+@import "../../../scss/grid.scss";
+
+.login-page-container {
+    height: inherit;
+    @include row;
+
+    .login-form-panel {
+        @include column;
+        @include justify-center;
+        flex-basis: 25%;
+        position: relative;
+
+        .login-page-title {
+            position: absolute;
+            top: 0;
+        }
+    }
+
+    .login-background-panel {
+        flex-basis: 75%;
+        background: url("https://miro.medium.com/v2/resize:fit:4800/format:webp/0*VvUcRpqMRAfuav9M");
+        background-size: cover;
+    }
+}
+
+@media (max-width: 800px) {
+    .login-page-container {
+        .login-form-panel {
+            flex-basis: 100%;
+
+            .login-page-title {
+                position: relative;
+                text-align: center;
+            }
+        }
+
+        .login-background-panel {
+            display: none;
+        }
+    }
+}
