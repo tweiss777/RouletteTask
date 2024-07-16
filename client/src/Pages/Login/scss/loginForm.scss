@@ -1,39 +1,45 @@
 @import "../../../scss/grid.scss";
 
 @mixin inputField {
-  input {
-    border: solid black 1px;
-    border-radius: 5px;
-    height: 25px;
-        &:focus{
+    input {
+        border: solid black 1px;
+        border-radius: 5px;
+        height: 25px;
+
+        &:focus {
             border: solid 3px;
         }
-  }
+    }
 }
 
 .login-form {
-  @include column;
-  margin: 2%;
-  border-radius: 15px;
-  padding: 20px;
-  box-shadow:
-    0 4px 8px 0 rgba(0, 0, 0, 0.2),
-    0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
-  .username-field {
     @include column;
-    @include inputField;
+    margin: 2%;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow:
+        0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
-  }
-
-  .password-field {
-    @include column;
-    @include inputField;
+    .error-message {
+        color: red;
+        font-weight: bold;
     }
 
-  .login-button {
+    .username-field {
         @include column;
-        button{
+        @include inputField;
+    }
+
+    .password-field {
+        @include column;
+        @include inputField;
+    }
+
+    .login-button {
+        @include column;
+
+        input[type="submit"] {
             border: none;
             border-radius: 5px;
             background-color: #0d6efd;
@@ -45,6 +51,5 @@
             font-weight: bold;
             cursor: pointer;
         }
-  }
-
+    }
 }

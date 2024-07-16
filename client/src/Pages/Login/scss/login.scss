@@ -3,8 +3,6 @@
 .login-page-container {
   height: inherit;
   @include row;
-  border: solid black 1px;
-
   .login-form-panel {
     @include column;
     @include justify-center;
