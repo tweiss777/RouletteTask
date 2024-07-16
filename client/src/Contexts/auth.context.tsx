@@ -1,27 +1,62 @@
-import { createContext } from "react";
-
+import { createContext, useState, ReactNode } from "react";
+import { jwtDecode } from "jwt-decode";
+import { useCookies } from "react-cookie";
 export interface AuthContextProps {
     token: string;
     userId: string;
     isAuthenticated: boolean;
-    login: (token: string, userId: string) => void;
+    setUserData: (token: string) => void;
+    isUserLoggedIn: () => void;
     logout: () => void;
 }
 
 interface IProps {
-    children: JSX.Element | JSX.Element[];
+    children: ReactNode;
 }
 
 const AuthContext = createContext<AuthContextProps>({
     logout: () => { },
-    login: (token: string, userId: string) => { },
+    setUserData: (_token: string) => { },
+    isUserLoggedIn: () => { },
     isAuthenticated: false,
     token: "",
     userId: "",
-
 });
 
-export default function AuthContextProvider({ children }: IProps) {
+export const AuthContextProvider = ({ children }: IProps) => {
+    const [token, setToken] = useState<string>("");
+    const [userId, setUserId] = useState<string>("");
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+    const [cookies, setCookie, removeCookie] = useCookies(["token"]);
+    const setUserData = (token: string) => {
+        const decodedToken = jwtDecode(token);
+        console.log(decodedToken);
+        setToken(token);
+        setUserId(userId);
+        setIsAuthenticated(true);
+        setCookie("token", token, { path: "/" });
+    };
+    function isUserLoggedIn() {
+        if (cookies.token) {
+            setUserData(cookies.token);
+            setIsAuthenticated(true);
+        }
+    }
 
-    return <AuthContext.Provider value={ { logout: () => { }, login: (token: string, userId: string) => { }, isAuthenticated: false, token: "", userId: "" } }> { children } </AuthContext.Provider>);
-}
+    const logout = () => {
+        setToken("");
+        setUserId("");
+        setIsAuthenticated(false);
+        removeCookie("token");
+    };
+
+    return (
+        <AuthContext.Provider
+            value={{ token, userId, isAuthenticated, setUserData, logout, isUserLoggedIn }}
+        >
+            {children}
+        </AuthContext.Provider>
+    );
+};
+
+export default AuthContext;
