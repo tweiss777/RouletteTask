@@ -11,7 +11,7 @@ const routes = [
     },
     {
         path: '/register',
-        element: <h1>Register</h1>,
+        element: <Login />,
         name: 'Register',
         nodeRef: createRef()
     },
