@@ -13,14 +13,13 @@ export default function RegistrationForm({
     errorMessage,
     disableRegistrationBtn,
 }: IProps) {
-    const [registrationForm, setRegistrationForm] = useState({
+    const [registrationForm, setRegistrationForm] = useState<RegistrationDTO>({
         username: "",
         password: "",
         confirmPassword: "",
     });
 
     function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
-        console.log(e.target.name)
         setRegistrationForm({
             ...registrationForm,
             [e.target.name]: e.target.value,
