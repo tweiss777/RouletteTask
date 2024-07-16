@@ -1,3 +1,4 @@
+import '../scss/loginForm.scss';
 import { useState } from "react";
 import CredentialsDTO from "../../../DTOS/credentialsDTO";
 interface IProps {
@@ -40,8 +41,8 @@ export default function LoginForm({ handleSubmit }: IProps) {
           <label>Password</label>
           <input
             onChange={handleOnChange}
-            type="text"
-            name="username"
+            type="password"
+            name="password"
             value={loginForm.password}
           />
         </div>
