@@ -3,11 +3,16 @@
 .dashboard-container {
     height: inherit;
     @include row;
+    gap: 2%;
     .side-panel{
         flex-basis: 20%;
 
     }
     .main-panel{
         flex-basis: 80%;
+        .notes-text-container{
+            height: 100%;
+
+        }
     }
 }
