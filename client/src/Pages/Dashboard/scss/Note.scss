@@ -1,0 +1,15 @@
+.note-container{
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 2px 3px 8px black;;
+    .title-container{
+       width: 100%; 
+    }
+    .content-container{
+        overflow: hidden;
+    }
+
+}
+

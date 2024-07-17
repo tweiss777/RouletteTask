@@ -2,6 +2,7 @@ import { createRef } from "react";
 import { createBrowserRouter } from 'react-router-dom'
 import Login from "../Pages/Login/Login";
 import App from "../App";
+import Dashboard from "../Pages/Dashboard/Dashboard";
 const routes = [
     {
         path: "/login",
@@ -17,7 +18,7 @@ const routes = [
     },
     {
         path: "/dashboard",
-        element: <h1> dashboard</h1>,
+        element: <Dashboard/>,
         name: "Dashboard",
         nodeRef: createRef(),
     },

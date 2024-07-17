@@ -1,0 +1,10 @@
+@import '../../../scss/grid.scss';
+
+
+.notes-group-container{
+    @include column;
+    gap: 3%;
+    overflow-y: auto;
+    height: 90%;
+
+}
