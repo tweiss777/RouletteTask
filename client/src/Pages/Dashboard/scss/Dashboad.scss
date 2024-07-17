@@ -4,15 +4,40 @@
     height: inherit;
     @include row;
     gap: 2%;
-    .side-panel{
+
+    .side-panel {
+        position: relative;
         flex-basis: 20%;
+        @include column;
 
+        .options-container {
+            @include row;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            height: 75px;
+            position: absolute;
+            bottom: 0;
+            background: #ffffff;
+            button{
+                height: inherit;
+                border: none;
+                outline: none;
+                background: none;
+                cursor: pointer;
+                border-radius: 5px; 
+                border: 1px solid black;
+                padding: 10px;
+
+            }
+        }
     }
-    .main-panel{
-        flex-basis: 80%;
-        .notes-text-container{
-            height: 100%;
 
+    .main-panel {
+        flex-basis: 80%;
+
+        .notes-text-container {
+            height: 100%;
         }
     }
 }
