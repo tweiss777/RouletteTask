@@ -1,0 +1,13 @@
+@import '../../../scss/grid.scss';
+
+.dashboard-container {
+    height: inherit;
+    @include row;
+    .side-panel{
+        flex-basis: 20%;
+
+    }
+    .main-panel{
+        flex-basis: 80%;
+    }
+}
