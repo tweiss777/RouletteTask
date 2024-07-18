@@ -35,9 +35,10 @@
 
     .main-panel {
         flex-basis: 80%;
-
+        position: relative;
         .notes-text-container {
             height: 100%;
         }
+        
     }
 }

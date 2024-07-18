@@ -102,5 +102,6 @@ export default function useNotes() {
         handleClickNote,
         handleUpdateCurrentNote,
         deleteNote,
+        error
     };
 }
