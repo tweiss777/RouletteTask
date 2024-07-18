@@ -52,7 +52,7 @@ def updateNotes(request, id) -> Response:
         updatedNote = request.data
         Notes.objects.filter(id=id).update(**updatedNote, updated_at=datetime.datetime.now())
         parsedUpdatedNote = NotesSerializer(note).data
-        return Response({"note": parsedUpdatedNote }, status=status.HTTP_204_NO_CONTENT)
+        return Response({"note": parsedUpdatedNote }, status=status.HTTP_200_OK)
     except Notes.DoesNotExist:
         return Response({"message": "note not found"}, status=status.HTTP_404_NOT_FOUND)
     except Exception as e:
@@ -64,7 +64,7 @@ def deleteNotes(request, id):
     try:
         note = Notes.objects.get(id=id)
         Notes.objects.filter(id=note.id).delete()
-        return Response({"message": "note deleted"}, status=status.HTTP_204_NO_CONTENT)
+        return Response({"message": "note deleted"}, status=status.HTTP_200_OK)
     except Notes.DoesNotExist:
         return Response({"message": "note not found"}, status=status.HTTP_404_NOT_FOUND)
 
