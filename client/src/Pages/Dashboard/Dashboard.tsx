@@ -24,6 +24,7 @@ export default function Dashboard() {
                     <NotesGroup>
                         {notes.map((note) => (
                             <Note
+                                handleDelete={deleteNote}
                                 handleClick={handleClickNote}
                                 key={note.id}
                                 id={note.id}
