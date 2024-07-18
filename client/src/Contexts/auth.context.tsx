@@ -1,11 +1,12 @@
-import { createContext, useState, ReactNode } from "react";
-import { jwtDecode } from "jwt-decode";
-import { useCookies } from "react-cookie";
+import { createContext, useState, ReactNode } from 'react';
+import { jwtDecode } from 'jwt-decode';
+import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
 export interface AuthContextProps {
     token: string;
     userId: string;
     isAuthenticated: boolean;
-    setUserData: (token: string) => void;
+    login: (token: string) => void;
     isUserLoggedIn: () => void;
     logout: () => void;
 }
@@ -16,43 +17,45 @@ interface IProps {
 
 const AuthContext = createContext<AuthContextProps>({
     logout: () => { },
-    setUserData: (_token: string) => { },
+    login: (_token: string) => { },
     isUserLoggedIn: () => { },
     isAuthenticated: false,
-    token: "",
-    userId: "",
+    token: '',
+    userId: '',
 });
 
 export const AuthContextProvider = ({ children }: IProps) => {
-    const [token, setToken] = useState<string>("");
-    const [userId, setUserId] = useState<string>("");
+    const [token, setToken] = useState<string>('');
+    const [userId, setUserId] = useState<string>('');
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-    const [cookies, setCookie, removeCookie] = useCookies(["token"]);
-    const setUserData = (token: string) => {
-        const decodedToken: any= jwtDecode(token);
+    const [cookies, setCookie, removeCookie] = useCookies(['token']);
+    const navigate = useNavigate();
+    const login = (token: string) => {
+        const decodedToken: any = jwtDecode(token);
         setToken(token);
         setUserId(decodedToken.user_id);
         setIsAuthenticated(true);
-        setCookie("token", token, { path: "/" });
-        //redirect user to dashboard
+        setCookie('token', token, { path: '/' });
+        navigate('/dashboard');
     };
     function isUserLoggedIn() {
         if (cookies.token) {
-            setUserData(cookies.token);
+            login(cookies.token);
             setIsAuthenticated(true);
         }
     }
 
     const logout = () => {
-        setToken("");
-        setUserId("");
+        setToken('');
+        setUserId('');
         setIsAuthenticated(false);
-        removeCookie("token");
+        removeCookie('token');
+        navigate('/login');
     };
 
     return (
         <AuthContext.Provider
-            value={{ token, userId, isAuthenticated, setUserData, logout, isUserLoggedIn }}
+            value={{ token, userId, isAuthenticated, login, logout, isUserLoggedIn }}
         >
             {children}
         </AuthContext.Provider>

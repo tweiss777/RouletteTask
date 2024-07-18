@@ -4,7 +4,7 @@ import useLogin from "./hooks/login";
 import { useLocation } from "react-router-dom";
 import "./scss/login.scss";
 export default function Login() {
-  const { disableBtn, error, login, register } = useLogin();
+  const { disableBtn, error, loginHandler, register } = useLogin();
   const { pathname } = useLocation();
 
   return (
@@ -24,7 +24,7 @@ export default function Login() {
             <LoginForm
               errorMessage={error}
               disableLoginBtn={disableBtn}
-              handleSubmit={login}
+              handleSubmit={loginHandler}
             />
           )}
         </div>
