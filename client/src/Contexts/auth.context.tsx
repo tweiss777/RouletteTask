@@ -40,7 +40,9 @@ export const AuthContextProvider = ({ children }: IProps) => {
     };
     function isUserLoggedIn() {
         if (cookies.token) {
-            login(cookies.token);
+            const decodedToken: any = jwtDecode(cookies.token); 
+            setToken(cookies.token);
+            setUserId(decodedToken.user_id);
             setIsAuthenticated(true);
         }
     }
