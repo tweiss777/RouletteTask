@@ -7,7 +7,7 @@ export interface AuthContextProps {
     userId: string;
     isAuthenticated: boolean;
     login: (token: string) => void;
-    isUserLoggedIn: () => void;
+    isUserLoggedIn: () => boolean;
     logout: () => void;
 }
 
@@ -18,7 +18,7 @@ interface IProps {
 const AuthContext = createContext<AuthContextProps>({
     logout: () => { },
     login: (_token: string) => { },
-    isUserLoggedIn: () => { },
+    isUserLoggedIn: () => false,
     isAuthenticated: false,
     token: '',
     userId: '',
@@ -44,7 +44,9 @@ export const AuthContextProvider = ({ children }: IProps) => {
             setToken(cookies.token);
             setUserId(decodedToken.user_id);
             setIsAuthenticated(true);
+            return true
         }
+        return false
     }
 
     const logout = () => {
