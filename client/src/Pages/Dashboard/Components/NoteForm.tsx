@@ -12,7 +12,8 @@ interface IProps {
 export default function NoteForm({ id, title, content, note, handleSubmit, handleUpdate, handleOnChange }: IProps) {
 
     function submit() {
-        note?.id ? handleUpdate(title, content, note.id) : handleSubmit(title, content);
+        console.log(id)
+        id ? handleUpdate(title, content, id) : handleSubmit(title, content);
     }
 
     return (

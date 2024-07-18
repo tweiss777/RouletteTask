@@ -1,7 +1,6 @@
 import './scss/Dashboad.scss';
 import NoteForm from './Components/NoteForm';
 import Note from './Components/Note';
-import mockNotes from '../../data/mockNotes';
 import NotesGroup from './Components/NotesGroup';
 import useNotes from './hooks/useNotes';
 export default function Dashboard() {
@@ -13,6 +12,8 @@ export default function Dashboard() {
         updateNote,
         handleClickNote,
         handleUpdateCurrentNote,
+        deleteNote,
+        notes,
     } = useNotes();
 
     return (
@@ -21,7 +22,7 @@ export default function Dashboard() {
                 <h1>Notes App</h1>
                 <div className="notes-group-container">
                     <NotesGroup>
-                        {mockNotes.map((note) => (
+                        {notes.map((note) => (
                             <Note
                                 handleClick={handleClickNote}
                                 key={note.id}

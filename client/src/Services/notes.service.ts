@@ -3,6 +3,7 @@ import { NewNoteDTO } from '../DTOS/newNote.dto';
 import { UpdateNoteDTO } from '../DTOS/updateNote.dto';
 import BadRequestException from '../Errors/badRequest.exception';
 import InternalServerError from '../Errors/internal.exception';
+import { Note } from '../types/Note';
 
 export async function getNotes(token: string, userId: string) {
   try {
@@ -23,7 +24,7 @@ export async function getNotes(token: string, userId: string) {
 export async function createNote(token: string, newNote: NewNoteDTO) {
   try {
     const response = await axios.post(
-      '/api/v1/notes',
+      '/api/v1/notes/create',
       {
         user_id: newNote.userId,
         title: newNote.title,
@@ -35,8 +36,12 @@ export async function createNote(token: string, newNote: NewNoteDTO) {
         },
       },
     );
-
-    return response.data.note;
+    const createdNote: Note ={
+        id: response.data.note.id,
+        title: response.data.note.title,
+        content: response.data.note.content
+    }
+    return createdNote;
   } catch (error: any) {
         if(error.response.status === 400){
             throw new BadRequestException(error.response.data.message);
@@ -47,8 +52,9 @@ export async function createNote(token: string, newNote: NewNoteDTO) {
 
 export async function updateNote(token: string, updatedNote: UpdateNoteDTO) {
   try {
+        console.log('updating note')
     const response = await axios.put(
-      `/api/v1/notes/${updatedNote.id}`,
+      `/api/v1/notes/update/${updatedNote.id}`,
       {
         title: updatedNote.title,
         content: updatedNote.content,
@@ -62,13 +68,14 @@ export async function updateNote(token: string, updatedNote: UpdateNoteDTO) {
 
     return response.data.note;
   } catch (error: any) {
+        console.log(error.response.status);
         throw new InternalServerError('Something went wrong');
   }
 }
 
 export async function deleteNote(token: string, noteId: number) {
   try {
-    const response = await axios.delete(`/api/v1/notes/${noteId}`, {
+    const response = await axios.delete(`/api/v1/notes/delete/${noteId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
