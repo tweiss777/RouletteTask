@@ -35,7 +35,7 @@ def createNotes(request) -> Response:
         Notes.objects.create(**newNote, created_at=datetime.datetime.now(), updated_at=datetime.datetime.now())
         createdNote = Notes.objects.latest('created_at')
         parsedNote = NotesSerializer(createdNote).data
-        return Response({"message": parsedNote}, status=status.HTTP_201_CREATED)
+        return Response({"note": parsedNote}, status=status.HTTP_201_CREATED)
     except IntegrityError:
         return Response({"message": "Invalid user id"}, status=status.HTTP_400_BAD_REQUEST)
     except Exception as e:
