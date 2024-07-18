@@ -3,6 +3,7 @@ import { createBrowserRouter } from 'react-router-dom'
 import Login from "../Pages/Login/Login";
 import App from "../App";
 import Dashboard from "../Pages/Dashboard/Dashboard";
+import ProtectedRoute from "../Components/ProtectdRoute";
 const routes = [
     {
         path: "/login",
@@ -18,7 +19,8 @@ const routes = [
     },
     {
         path: "/dashboard",
-        element: <Dashboard/>,
+                
+        element: <ProtectedRoute><Dashboard/></ProtectedRoute>,
         name: "Dashboard",
         nodeRef: createRef(),
     },

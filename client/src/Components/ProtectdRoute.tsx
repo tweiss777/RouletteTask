@@ -6,7 +6,7 @@ import { Navigate } from "react-router-dom";
 
 
 export default function ProtectedRoute({ children }: IProps) {
-        const { isAuthenticated } = useAuthContext();
+        const { isUserLoggedIn } = useAuthContext();
 
-        return isAuthenticated ? <>{children}</>: <Navigate to={"/login"} />;
+        return isUserLoggedIn() ? <>{children}</>: <Navigate to={"/login"} />;
 }
