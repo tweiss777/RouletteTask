@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from Notes.models import Notes
+from Users.models import Users
 from rest_framework import status
 from Notes.NotesSerializer import NotesSerializer
 from Auth.auth import IsAuthorizedPermission
@@ -13,6 +14,18 @@ def getNotes(request) -> Response:
     notes = Notes.objects.all() 
     parsedNotes = NotesSerializer(notes, many=True).data
     return Response({"notes": parsedNotes}, status=status.HTTP_200_OK) 
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthorizedPermission])
+def getNotesByUserId(request, userId) -> Response:
+    try:
+        notes = Notes.objects.filter(user=userId)
+        parsedNotes = NotesSerializer(notes, many=True).data
+        return Response({"notes": parsedNotes}, status=status.HTTP_200_OK)
+    except ValueError:
+        return Response({"message": "invalid id"}, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(["POST"])
 @permission_classes([IsAuthorizedPermission])
