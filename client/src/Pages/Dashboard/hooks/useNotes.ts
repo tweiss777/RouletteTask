@@ -7,6 +7,7 @@ export default function useNotes() {
         title: '',
         content: '',
     });
+    const [notes, setNotes] = useState([]);
     function createNewNote(title: string, content: string) {
         throw new Error('Function not implemented.');
     }
@@ -24,6 +25,7 @@ export default function useNotes() {
     return {
         logout,
         currentNote,
+        notes,
         setCurrentNote,
         createNewNote,
         updateNote,
