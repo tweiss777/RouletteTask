@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { NewNoteDTO } from '../DTOS/newNote.dto';
 import { UpdateNoteDTO } from '../DTOS/updateNote.dto';
+import BadRequestException from '../Errors/badRequest.exception';
+import InternalServerError from '../Errors/internal.exception';
 
 export async function getNotes(token: string, userId: string) {
   try {
@@ -11,7 +13,10 @@ export async function getNotes(token: string, userId: string) {
     });
     return response.data.notes;
   } catch (error: any) {
-    throw new Error(error.response.data.message);
+        if(error.response.status === 400){
+            throw new BadRequestException(error.response.data.message);
+        }
+    throw new InternalServerError("Something went wrong");
   }
 }
 
@@ -33,7 +38,10 @@ export async function createNote(token: string, newNote: NewNoteDTO) {
 
     return response.data.note;
   } catch (error: any) {
-    throw error;
+        if(error.response.status === 400){
+            throw new BadRequestException(error.response.data.message);
+        } 
+    throw new InternalServerError('Something went wrong');
   }
 }
 
@@ -54,7 +62,7 @@ export async function updateNote(token: string, updatedNote: UpdateNoteDTO) {
 
     return response.data.note;
   } catch (error: any) {
-    throw error;
+        throw new InternalServerError('Something went wrong');
   }
 }
 
@@ -68,6 +76,9 @@ export async function deleteNote(token: string, noteId: number) {
 
     return response.data;
   } catch (error: any) {
-    throw error;
+    if(error.response.status === 400){
+        throw new BadRequestException(error.response.data.message);
+    }
+    throw new InternalServerError('Something went wrong');
   }
 }
