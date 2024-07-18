@@ -7,4 +7,5 @@ urlpatterns = [
     path("update/<str:id>", views.updateNotes),
     path("delete/<str:id>", views.deleteNotes),
     path("<str:id>", views.getNote),
+    path("user/<str:userId>", views.getNotesByUserId),
 ]
