@@ -57,7 +57,7 @@ export default function LoginForm({
 
                 
                 <div className="login-button">
-                    <input disabled={disableLoginBtn} type="submit" value="Login" />
+                    <input disabled={disableLoginBtn} type="submit" value={disableLoginBtn ? "Logging In..." : "Login"} />
                 </div>
             </form>
             <Link to="/register">Register</Link>

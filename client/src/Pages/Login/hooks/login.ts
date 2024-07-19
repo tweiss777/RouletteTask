@@ -14,8 +14,8 @@ export default function useLogin() {
     async function loginHandler(credentials: CredentialsDTO) {
         try {
             if (error) setError('');
-            const data = await loginUser(credentials);
             setDisableBtn(true);
+            const data = await loginUser(credentials);
             if (data?.token) {
                 const token = data.token;
                 login(token);
