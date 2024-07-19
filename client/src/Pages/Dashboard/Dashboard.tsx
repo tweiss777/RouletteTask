@@ -16,6 +16,7 @@ export default function Dashboard() {
     deleteNote,
     notes,
     error,
+    btnDisabled
   } = useNotes();
 
   return (
@@ -52,6 +53,7 @@ export default function Dashboard() {
         {error && <ErrorMessage error={error} />}
         <div className="notes-text-container">
           <NoteForm
+            btnDisabled={btnDisabled}
             id={currentNote.id}
             title={currentNote.title}
             content={currentNote.content}

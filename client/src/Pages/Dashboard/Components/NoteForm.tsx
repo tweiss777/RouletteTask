@@ -7,9 +7,10 @@ interface IProps {
     title: string;
     content: string;
     id?: string;
+    btnDisabled?: boolean
 }
 
-export default function NoteForm({ id, title, content, note, handleSubmit, handleUpdate, handleOnChange }: IProps) {
+export default function NoteForm({ btnDisabled, id, title, content, note, handleSubmit, handleUpdate, handleOnChange }: IProps) {
 
     function submit() {
         console.log(id)
@@ -36,7 +37,7 @@ export default function NoteForm({ id, title, content, note, handleSubmit, handl
                 />
             </div>
             <div className="submit-container">
-                <button onClick={submit}>{id ? 'Update' : 'Submit'}</button>
+                <button disabled={btnDisabled} onClick={submit}>{id ? btnDisabled ? 'Updating...' : 'Update' : btnDisabled ? 'Creating...' : 'Submit'}</button>
             </div>
         </div>
     );

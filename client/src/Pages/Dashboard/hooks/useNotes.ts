@@ -15,7 +15,7 @@ export default function useNotes() {
   });
   const [notes, setNotes] = useState<Note[]>([]);
   const [error, setError] = useState('');
-
+    const [btnDisabled, setBtnDisabled] = useState(false);
   useEffect(() => {
     async function get() {
       try {
@@ -31,6 +31,7 @@ export default function useNotes() {
 
   async function createNewNote(title: string, content: string) {
     try {
+    setBtnDisabled(true);
       const newNoteDto: NewNoteDTO = {
         userId,
         title,
@@ -45,11 +46,14 @@ export default function useNotes() {
         return;
       }
       setError('Something went wrong');
+    } finally {
+      setBtnDisabled(false);
     }
   }
   async function updateNote(title: string, content: string, id: string) {
     try {
       if (error) setError('');
+            setBtnDisabled(true);
       const updatedNote = await notesService.updateNote(token, {
         title,
         content,
@@ -65,7 +69,9 @@ export default function useNotes() {
         return;
       }
       setError('Something went wrong');
-    }
+    } finally{
+      setBtnDisabled(false);
+        }
   }
 
   function handleClickNote(id: string, title: string, content: string) {
@@ -107,6 +113,7 @@ export default function useNotes() {
     handleClickNote,
     handleUpdateCurrentNote,
     deleteNote,
+    btnDisabled,
     error,
   };
 }
