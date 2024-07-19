@@ -23,6 +23,8 @@ export default function Dashboard() {
       <div className="side-panel">
         <div className="notes-group-container">
           <NotesGroup>
+            <>
+            {notes.length === 0 && <h1>No notes yet</h1>}
             {notes.map((note) => (
               <Note
                 handleDelete={deleteNote}
@@ -33,6 +35,7 @@ export default function Dashboard() {
                 content={note.content}
               />
             ))}
+          </>
           </NotesGroup>
         </div>
         <div className="options-container">
