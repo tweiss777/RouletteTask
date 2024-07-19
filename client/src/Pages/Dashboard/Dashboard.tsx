@@ -21,7 +21,6 @@ export default function Dashboard() {
   return (
     <div className="dashboard-container">
       <div className="side-panel">
-        <h1>Notes App</h1>
         <div className="notes-group-container">
           <NotesGroup>
             {notes.map((note) => (

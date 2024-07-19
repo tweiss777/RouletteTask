@@ -3,6 +3,7 @@ import RegistrationForm from "./Components/RegistrationForm";
 import useLogin from "./hooks/login";
 import { useLocation } from "react-router-dom";
 import "./scss/login.scss";
+import LoginHeader from "./Components/LoginHeader";
 export default function Login() {
   const { disableBtn, error, loginHandler, register } = useLogin();
   const { pathname } = useLocation();
@@ -10,9 +11,7 @@ export default function Login() {
   return (
     <div className="login-page-container">
       <div className="login-form-panel">
-        <div className="login-page-title">
-          <h1>Notes App.</h1>
-        </div>
+        <LoginHeader /> 
         <div className="login-form-container">
           {pathname.toLowerCase() === "/register" ? (
             <RegistrationForm

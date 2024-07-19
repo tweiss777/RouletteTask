@@ -8,12 +8,7 @@
         @include column;
         @include justify-center;
         flex-basis: 25%;
-        position: relative;
-
-        .login-page-title {
-            position: absolute;
-            top: 0;
-        }
+        position: relative;        
     }
 
     .login-background-panel {
