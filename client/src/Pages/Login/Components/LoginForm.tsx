@@ -55,10 +55,7 @@ export default function LoginForm({
                     />
                 </div>
 
-                <div className="remember-me-field">
-                    <label>Remember me</label>
-                    <input onChange={handleOnChange} type="checkbox" name="rememberMe" />
-                </div>
+                
                 <div className="login-button">
                     <input disabled={disableLoginBtn} type="submit" value="Login" />
                 </div>
