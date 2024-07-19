@@ -52,7 +52,6 @@ export async function createNote(token: string, newNote: NewNoteDTO) {
 
 export async function updateNote(token: string, updatedNote: UpdateNoteDTO) {
   try {
-        console.log('updating note')
     const response = await axios.put(
       `/api/v1/notes/update/${updatedNote.id}`,
       {
