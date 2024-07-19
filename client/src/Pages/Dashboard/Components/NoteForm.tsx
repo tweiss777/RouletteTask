@@ -10,7 +10,7 @@ interface IProps {
     btnDisabled?: boolean
 }
 
-export default function NoteForm({ btnDisabled, id, title, content, note, handleSubmit, handleUpdate, handleOnChange }: IProps) {
+export default function NoteForm({ btnDisabled, id, title, content, handleSubmit, handleUpdate, handleOnChange }: IProps) {
 
     function submit() {
         console.log(id)
