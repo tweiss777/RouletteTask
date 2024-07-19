@@ -41,7 +41,7 @@ def login(request) -> Response:
         if username == "" or password == "":
             return Response({"message": "invalid username or password"}, status=status.HTTP_401_UNAUTHORIZED) 
         user = Users.objects.get(username=username)
-        if user.password != password:
+        if not user.check_password(password):
             return Response({"message": "invalid user or password"}, status=status.HTTP_401_UNAUTHORIZED)
 
         token = generateToken(user)
