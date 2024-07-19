@@ -1,9 +1,12 @@
 import "./App.css";
 import { AuthContextProvider } from "./Contexts/auth.context";
-import OutletWrapper from "./Components/OutletWrapper";
-import { Outlet } from "react-router-dom";
-
+import { Outlet, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 function App() {
+    const navigate = useNavigate()
+    useEffect(() => {
+       navigate('/dashboard') 
+    },[])
     return (
         <>
             <AuthContextProvider>
