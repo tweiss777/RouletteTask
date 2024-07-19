@@ -7,7 +7,8 @@ import ConflictException from "../Errors/conflict.exception";
 import BadRequestException from "../Errors/badRequest.exception";
 export async function loginUser(credentials: CredentialsDTO) {
     try {
-        const response = await axios.post("/api/v1/users/login", credentials);
+    
+        const response = await axios.post("http://44.208.246.196/api/v1/users/login", credentials);
         return response.data;
     } catch (error: any) {
         if (error.response.status === 401) {
@@ -20,7 +21,7 @@ export async function loginUser(credentials: CredentialsDTO) {
 export async function registerUser(registrationForm: RegistrationDTO) {
     try {
         console.log(registrationForm);
-        const response = await axios.post("/api/v1/users/register", {
+        const response = await axios.post("http://44.208.246.196/api/v1/users/register", {
             ...registrationForm,
             confirm_password: registrationForm.confirmPassword,
         });

@@ -7,7 +7,7 @@ import { Note } from '../types/Note';
 
 export async function getNotes(token: string, userId: string) {
   try {
-    const response = await axios.get(`/api/v1/notes/user/${userId}`, {
+    const response = await axios.get(`http://44.208.246.196/api/v1/notes/user/${userId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -24,7 +24,7 @@ export async function getNotes(token: string, userId: string) {
 export async function createNote(token: string, newNote: NewNoteDTO) {
   try {
     const response = await axios.post(
-      '/api/v1/notes/create',
+      'http://44.208.246.196/api/v1/notes/create',
       {
         user_id: newNote.userId,
         title: newNote.title,
@@ -53,7 +53,7 @@ export async function createNote(token: string, newNote: NewNoteDTO) {
 export async function updateNote(token: string, updatedNote: UpdateNoteDTO) {
   try {
     const response = await axios.put(
-      `/api/v1/notes/update/${updatedNote.id}`,
+      `http://44.208.246.196/api/v1/notes/update/${updatedNote.id}`,
       {
         title: updatedNote.title,
         content: updatedNote.content,
@@ -74,7 +74,7 @@ export async function updateNote(token: string, updatedNote: UpdateNoteDTO) {
 
 export async function deleteNote(token: string, noteId: number) {
   try {
-    const response = await axios.delete(`/api/v1/notes/delete/${noteId}`, {
+    const response = await axios.delete(`http://44.208.246.196/api/v1/notes/delete/${noteId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

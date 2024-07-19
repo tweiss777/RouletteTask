@@ -16,8 +16,8 @@ export default function Note({ id, title, content, handleClick, handleDelete }: 
     }
 
     return (
-        <div onClick={deleteNote} className="note-container">
-            <button onClick={handleClickNote}>X</button>
+        <div onClick={handleClickNote} className="note-container">
+            <button onClick={deleteNote}>X</button>
             <div className="title-container">
                 <h3>{title}</h3>
             </div>
